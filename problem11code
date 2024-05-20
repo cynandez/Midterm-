@@ -1,0 +1,57 @@
+
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+const double EPSILON = 1e-6;
+
+double calcCosine(double angle);
+double calcSine(double angle);
+
+int main() 
+{
+    cout << fixed << showpoint << setprecision(3);
+
+    double angle = 0.0;
+    while (angle <= atan(1))
+    {
+        cout << "cos(2*" << angle << ") = " << calcCosine(2 * angle) << "\t\t";
+        cout << "sin(2*" << angle << ") = " << calcSine(2 * angle) << "\n";
+
+        angle += 0.1;
+    }
+
+    return 0;
+}
+
+double calcCosine(double angle)
+{
+    if (abs(angle) <= atan(1.0)) 
+    {
+        return (1.0 / angle) + (angle / 6.0);
+    } 
+    else 
+    {
+        return 0.5 * calcCosine(angle / 2.0) * calcSine(angle / 2.0);
+    }
+}
+
+double calcSine(double angle)
+{
+    if (angle == 0)
+    {
+        return INFINITY;
+    }
+    else if (abs(angle) <= atan(1.0)) 
+    {
+        return 1.0 + (pow(angle, 2) / 2.0);
+    } 
+    else 
+    {
+        double cosHalf = calcCosine(angle / 2.0);
+        double sinHalf = calcSine(angle / 2.0);
+        return (pow(cosHalf, 2) * pow(sinHalf, 2)) / (pow(cosHalf, 2) - pow(sinHalf, 2));
+    }
+}
