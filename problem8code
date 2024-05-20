@@ -1,0 +1,71 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/main.cc to edit this template
+ */
+
+/* 
+ * File:   main.cpp
+ * Cynthia H
+ *
+ * 
+ */
+
+#include <cstdlib>
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+/*
+ * Function to compute base^exponent using recursion with O(n) time complexity
+ */
+int exponential1(int, int);
+
+/*
+ * Function to compute base^exponent using recursion with O(log(n)) time complexity
+ */
+int exponential2(int, int);
+
+int main(int argc, char** argv) {
+
+    // Compute base^exponent using exponential1 function with O(n) time complexity
+    int result1 = exponential1(3, 4);
+    cout << result1 << endl;
+
+    // Compute base^exponent using exponential2 function with O(log(n)) time complexity
+    int result2 = exponential2(3, 4);
+    cout << result2;
+
+    return 0;
+}
+
+int exponential1(int base, int exponent)
+{
+    // Base case: exponent is 0, return 1
+    if (exponent == 0)
+    {
+        return 1;
+    }
+    // Recursive case: return base multiplied by base^(exponent-1)
+    else
+    {
+        return base * exponential1(base, exponent - 1);
+    }
+}
+
+int exponential2(int base, int exponent)
+{
+    // Base case: exponent is 0, return 1
+    if (exponent == 0) {
+        return 1;
+    }
+    // Recursive case 1: exponent is even, compute base^(exponent/2) recursively and square the result
+    else if (exponent % 2 == 0) {
+        int halfPower = exponential2(base, exponent / 2);
+        return halfPower * halfPower;
+    }
+    // Recursive case 2: exponent is odd, compute base^((exponent-1)/2) recursively and square the result, then multiply by base
+    else {
+        int halfPower = exponential2(base, (exponent - 1) / 2);
+        return base * halfPower * halfPower;
+    }
+}
