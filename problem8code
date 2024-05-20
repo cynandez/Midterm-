@@ -5,67 +5,41 @@
 
 /* 
  * File:   main.cpp
- * Cynthia H
+ * Name: Cynthia Hernandez
  *
  * 
  */
 
-#include <cstdlib>
 #include <iostream>
-#include <cmath>
+#include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
-/*
- * Function to compute base^exponent using recursion with O(n) time complexity
- */
-int exponential1(int, int);
+void computeProbability() {
 
-/*
- * Function to compute base^exponent using recursion with O(log(n)) time complexity
- */
-int exponential2(int, int);
+    int trials = 1000000;
+    int successfulHits = 0;
+    double probability = 0.0;
 
-int main(int argc, char** argv) {
+    for (int i = 0; i < trials; ++i) {
+        int randomValue1 = rand() % 100 + 1;
+        int randomValue2 = rand() % 100 + 1;
+        int randomValue3 = rand() % 100 + 1;
+        int randomValue4 = rand() % 100 + 1;
+        int randomValue5 = rand() % 100 + 1;
 
-    // Compute base^exponent using exponential1 function with O(n) time complexity
-    int result1 = exponential1(3, 4);
-    cout << result1 << endl;
+        if (randomValue1 <= 40 && randomValue2 <= 40 && randomValue3 <= 40 && randomValue4 <= 40 && randomValue5 <= 40) {
+            successfulHits++;
+        }
+    }
 
-    // Compute base^exponent using exponential2 function with O(log(n)) time complexity
-    int result2 = exponential2(3, 4);
-    cout << result2;
+    probability = static_cast<double>(successfulHits) / trials;
+    cout << "Probability of all numbers being within 40%: " << probability << endl;
+}
 
+int main() {
+    srand(static_cast<unsigned>(time(0)));  // Seed the random number generator
+    computeProbability();
     return 0;
-}
-
-int exponential1(int base, int exponent)
-{
-    // Base case: exponent is 0, return 1
-    if (exponent == 0)
-    {
-        return 1;
-    }
-    // Recursive case: return base multiplied by base^(exponent-1)
-    else
-    {
-        return base * exponential1(base, exponent - 1);
-    }
-}
-
-int exponential2(int base, int exponent)
-{
-    // Base case: exponent is 0, return 1
-    if (exponent == 0) {
-        return 1;
-    }
-    // Recursive case 1: exponent is even, compute base^(exponent/2) recursively and square the result
-    else if (exponent % 2 == 0) {
-        int halfPower = exponential2(base, exponent / 2);
-        return halfPower * halfPower;
-    }
-    // Recursive case 2: exponent is odd, compute base^((exponent-1)/2) recursively and square the result, then multiply by base
-    else {
-        int halfPower = exponential2(base, (exponent - 1) / 2);
-        return base * halfPower * halfPower;
-    }
 }
