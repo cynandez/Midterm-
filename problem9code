@@ -1,0 +1,68 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/main.cc to edit this template
+ */
+
+/* 
+ * File:   main.cpp
+ * Cynthia H.
+ *
+ * 
+ */
+
+#include <cstdlib>
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+/*
+ * Function to compute base^exp using recursion with O(n) time complexity
+ */
+int computePowerLinear(int base, int exp);
+
+/*
+ * Function to compute base^exp using recursion with O(log(n)) time complexity
+ */
+int computePowerLogarithmic(int base, int exp);
+
+int main(int argc, char** argv) {
+    // Compute base^exp using computePowerLinear function with O(n) time complexity
+    int result1 = computePowerLinear(3, 4);
+    cout << "Result with O(n) time complexity: " << result1 << endl;
+
+    // Compute base^exp using computePowerLogarithmic function with O(log(n)) time complexity
+    int result2 = computePowerLogarithmic(3, 4);
+    cout << "Result with O(log(n)) time complexity: " << result2 << endl;
+
+    return 0;
+}
+
+int computePowerLinear(int base, int exp)
+{
+    // Base case: exp is 0, return 1
+    if (exp == 0) {
+        return 1;
+    }
+    // Recursive case: return base multiplied by base^(exp-1)
+    else {
+        return base * computePowerLinear(base, exp - 1);
+    }
+}
+
+int computePowerLogarithmic(int base, int exp)
+{
+    // Base case: exp is 0, return 1
+    if (exp == 0) {
+        return 1;
+    }
+    // Recursive case 1: exp is even, compute base^(exp/2) recursively and square the result
+    else if (exp % 2 == 0) {
+        int halfPower = computePowerLogarithmic(base, exp / 2);
+        return halfPower * halfPower;
+    }
+    // Recursive case 2: exp is odd, compute base^((exp-1)/2) recursively and square the result, then multiply by base
+    else {
+        int halfPower = computePowerLogarithmic(base, (exp - 1) / 2);
+        return base * halfPower * halfPower;
+    }
+}
